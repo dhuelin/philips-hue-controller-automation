@@ -362,7 +362,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"on\": true,\n    \"sat\": 254,\n    \"bri\": 254,\n    \"hue\": 10000\n}",
+					"raw": "{\n    \"on\": true,\n    \"sat\": 0,\n    \"bri\": 500000,\n    \"hue\": 10000\n}",
 					"options": {
 						"raw": {
 							"language": "json"
