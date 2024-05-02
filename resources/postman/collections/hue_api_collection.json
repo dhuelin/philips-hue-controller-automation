@@ -66,6 +66,66 @@
 			]
 		},
 		{
+			"name": "/api Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "df158fac-e938-4b95-820c-dbafbd69a32b",
+						"exec": [
+							"pm.variables.set(\"username\", pm.response.json().username)",
+							"pm.variables.set(\"clientkey\", pm.response.json().clientkey)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "6da3958f-1d32-4df2-ba90-c6deda67f72b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"devicetype\": \"app#macbook_denis\",\n    \"generateclientkey\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/api"
+			},
+			"response": [
+				{
+					"id": "1798ec66-9e20-4893-959e-571242c81d8a",
+					"name": "https://192.168.1.136/api/",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"devicetype\": \"my_hue_app#macbook_denis\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://192.168.1.136/api/"
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"responseTime": null,
+					"body": "[\n\t{\n\t\t\"success\": {\n\t\t\t\"username\": \"qNucehLE3IpYXZFzh4d0xIM6nEqEAtLAV0E2RMpS\"\n\t\t}\n\t}\n]"
+				}
+			]
+		},
+		{
 			"name": "Get Devices",
 			"id": "5a54bfb3-668a-4830-b95a-e53e905d3e47",
 			"protocolProfileBehavior": {
