@@ -66,7 +66,7 @@
 			]
 		},
 		{
-			"name": "/api Copy",
+			"name": "Get Config",
 			"event": [
 				{
 					"listen": "test",
