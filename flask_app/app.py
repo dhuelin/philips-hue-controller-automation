@@ -5,7 +5,7 @@ from .config import Config
 from .utils import load_automations, save_automations
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 # Load configuration
 config = Config()
