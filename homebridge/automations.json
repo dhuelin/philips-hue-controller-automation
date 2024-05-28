@@ -4,7 +4,7 @@
             "name": "Wake Up Alarm Asian",
             "trigger": "time",
             "time": "08:25",
-            "lights": [14, 24],
+            "lights": [14, 22, 23, 24],
             "action": "wake_up_alarm",
             "settings": {
                 "flash_count": 100,
