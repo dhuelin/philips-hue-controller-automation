@@ -34,6 +34,9 @@ def wake_up_alarm(settings, light_ids):
 def flash_light(light, settings):
     for _ in range(settings["flash_count"]):
         light.on = True
+        light.sat = 0
+        light.ct = 154
+        light.transitiontime = 0
         light.brightness = settings["brightness"]
         time.sleep(settings["on_duration"])
         light.on = False
