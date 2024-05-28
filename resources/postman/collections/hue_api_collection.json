@@ -548,7 +548,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"on\": true,\n    \"sat\": 254,\n    \"bri\": 254,\n    \"hue\": 65535\n}",
+					"raw": "{\n    \"on\": false,\n    \"sat\": 0,\n    \"bri\": 254,\n    \"hue\": 65535,\n    \"transitiontime\": 0\n}",
 					"options": {
 						"raw": {
 							"language": "json"
