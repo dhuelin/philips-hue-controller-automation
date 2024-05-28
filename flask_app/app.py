@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for
 from phue import Bridge, PhueRegistrationException
 from .config import Config
-from .utils import load_automations, save_automations
+from .utils import load_automations, save_automations, execute_automation
 from .wake_up_alarm import wake_up_alarm
+from apscheduler.schedulers.background import BackgroundScheduler
+from datetime import datetime
 import os
 import json
 
@@ -28,6 +30,27 @@ if not os.path.exists(config_path):
 
 # Initialize the Bridge
 bridge = Bridge(config.get_hue_bridge_ip(), config.get_hue_username())
+
+scheduler = BackgroundScheduler()
+scheduler.start()
+
+def schedule_automations():
+    automations = load_automations()
+    for automation in automations:
+        if automation['trigger'] == 'time':
+            trigger_time = datetime.strptime(automation['time'], '%H:%M').time()
+            scheduler.add_job(
+                execute_automation,
+                'cron',
+                hour=trigger_time.hour,
+                minute=trigger_time.minute,
+                args=[automation['action'], automation['settings']]
+            )
+
+@app.before_first_request
+def initialize():
+    schedule_automations()
+
 
 @app.route('/')
 def index():
@@ -60,16 +83,20 @@ def automations():
 
 @app.route('/add_automation', methods=['POST'])
 def add_automation():
-    data = request.form
+    data = request.get_json()
     automation = {
         'name': data['name'],
         'trigger': data['trigger'],
-        'action': data['action']
+        'time': data.get('time', ''),
+        'lights': data['lights'],
+        'action': data['action'],
+        'settings': data['settings']
     }
     automations = load_automations()
     automations.append(automation)
     save_automations(automations)
     return redirect(url_for('automations'))
+
 
 @app.route('/delete_automation/<name>')
 def delete_automation(name):
