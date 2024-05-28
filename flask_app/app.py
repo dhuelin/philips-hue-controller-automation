@@ -40,9 +40,11 @@ def lights():
     lights = bridge.get_light_objects('id')
     return render_template('lights.html', lights=lights)
 
-@app.route('/toggle/<light_id>')
+@app.route('/toggle/<int:light_id>')
 def toggle(light_id):
-    light = bridge.get_light(int(light_id))
+    print(light_id)
+    light = bridge.get_light_objects('id')[light_id]
+    print(light)
     light.on = not light.on
     return ('', 204)
 
