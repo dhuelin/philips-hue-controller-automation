@@ -3,8 +3,14 @@ from phue import Bridge
 import json
 from utils import load_automations, save_automations, execute_automation
 
+# Load configuration from config.json
+with open('config.json') as config_file:
+    config = json.load(config_file)
+
+# Initialize the Bridge with the IP from the config
+bridge = Bridge(config['hue_bridge_ip'])
+
 app = Flask(__name__)
-bridge = Bridge('your-hue-bridge-ip')
 
 @app.route('/')
 def index():
