@@ -1,6 +1,6 @@
 from phue import Bridge
 import time
-from flask_app.config import Config
+from .config import Config
 
 # Load configuration
 config = Config()

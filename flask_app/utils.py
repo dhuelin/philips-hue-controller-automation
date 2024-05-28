@@ -1,7 +1,7 @@
 import json
 from phue import Bridge
 
-from flask_app.config import Config
+from .config import Config
 
 # Load configuration
 config = Config()

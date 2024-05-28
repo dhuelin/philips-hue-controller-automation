@@ -3,7 +3,7 @@ from phue import Bridge
 import json
 from utils import load_automations, save_automations, execute_automation
 
-from flask_app.config import Config
+from .config import Config
 
 # Load configuration
 config = Config()
