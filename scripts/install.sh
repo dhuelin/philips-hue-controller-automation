@@ -14,16 +14,10 @@ cp ../homebridge/config.json homebridge/config.json
 
 # Install Python packages
 source ../venv/bin/activate
-pip3 install -r ../flask_app/requirements.txt
-
-# Set up Flask app
-cp ../flask_app/app.py ~/app.py
-cp -r ../flask_app/templates ~/templates
-cp -r ../flask_app/static ~/static
-cp ../flask_app/utils.py ~/utils.py
+pip3 install -r flask_app/requirements.txt
 
 # Set up Nginx
-#sudo cp ../nginx/flask_app /etc/nginx/sites-available/flask_app
+#sudo cp nginx/flask_app /etc/nginx/sites-available/flask_app
 #sudo ln -s /etc/nginx/sites-available/flask_app /etc/nginx/sites-enabled
 #sudo nginx -t
 #sudo systemctl restart nginx
