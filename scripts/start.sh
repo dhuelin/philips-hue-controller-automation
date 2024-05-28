@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export PYTHONPATH=$(pwd)/../flask_app
+
 echo "Choose how to start the server:"
 echo "1. Local Network"
 echo "2. External Domain"

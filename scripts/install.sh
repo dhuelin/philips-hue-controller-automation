@@ -1,15 +1,16 @@
 #!/bin/bash
 
-# Update and upgrade system
-sudo apt-get update && sudo apt-get upgrade -y
+# Create project directory
+mkdir -p ~/huecontroller
+cd ~/huecontroller
 
 # Install dependencies
 sudo apt-get install -y python3-pip nodejs npm nginx certbot python3-certbot-nginx
 
 # Install and configure Homebridge
 sudo npm install -g --unsafe-perm homebridge homebridge-hue
-mkdir -p ~/.homebridge
-cp ../homebridge/config.json ~/.homebridge/config.json
+mkdir -p homebridge
+cp ../homebridge/config.json homebridge/config.json
 
 # Install Python packages
 source ../venv/bin/activate
@@ -31,6 +32,6 @@ cp ../flask_app/utils.py ~/utils.py
 # sudo certbot --nginx -d yourdomain.com
 
 # Set up cron job for checking phone connection
-# (crontab -l 2>/dev/null; echo "* * * * * /home/pi/scripts/wifi_monitor.sh") | crontab -
+#(crontab -l 2>/dev/null; echo "* * * * * /home/pi/huecontroller/scripts/wifi_monitor.sh") | crontab -
 
 echo "Installation complete. Please configure your Hue bridge IP and username in the respective files."

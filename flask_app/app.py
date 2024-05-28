@@ -1,15 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for
 from phue import Bridge
-import json
-from utils import load_automations, save_automations, execute_automation
-
 from .config import Config
+from .utils import load_automations, save_automations
+
+app = Flask(__name__)
 
 # Load configuration
 config = Config()
 bridge = Bridge(config.get_hue_bridge_ip(), config.get_hue_username())
-
-app = Flask(__name__)
 
 @app.route('/')
 def index():

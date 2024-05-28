@@ -1,4 +1,5 @@
 import json
+import os
 
 class Config:
     _instance = None
@@ -10,7 +11,8 @@ class Config:
         return cls._instance
 
     def _load_config(self):
-        with open('homebridge/config.json', 'r') as file:
+        config_path = os.path.join(os.path.dirname(__file__), '..', 'homebridge', 'config.json')
+        with open(config_path, 'r') as file:
             config = json.load(file)
             self.hue_bridge_ip = config.get('bridge_ip')
             self.hue_username = config.get('bridge_username')
