@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export PYTHONPATH=$(pwd)/../flask_app
+export PYTHONPATH=$(pwd)/flask_app
 
 cd ~/workspace/philips-hue-controller-automation
 
@@ -18,9 +18,9 @@ echo "2. External Domain"
 read -p "Enter your choice [1 or 2]: " choice
 
 if [ "$choice" -eq 1 ]; then
-    python3 flask_app/app.py
+    python3 -m flask_app.app
 elif [ "$choice" -eq 2 ]; then
-    python3 flask_app/app.py --external
+    python3 -m flask_app.app --external
 else
     echo "Invalid choice. Please run the script again."
 fi

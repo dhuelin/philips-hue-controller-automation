@@ -14,14 +14,18 @@ else
     echo "Creating new virtual environment."
     python3 -m venv venv
 fi
+source venv/bin/activate
 
 # Install and configure Homebridge
 sudo npm install -g --unsafe-perm homebridge homebridge-hue
 mkdir -p homebridge
-cp ../homebridge/config.json homebridge/config.json
+if [ ! -f homebridge/config.json ]; then
+    echo "Please create the homebridge/config.json file with your configuration."
+    exit 1
+fi
 
 # Install Python packages
-pip install -r flask_app/requirements.txt
+pip install --break-system-packages -r flask_app/requirements.txt
 
 # Set up cron job for checking phone connection
 #(crontab -l 2>/dev/null; echo "* * * * * /home/pi/workspace/philips-hue-controller-automation/scripts/wifi_monitor.sh") | crontab -
