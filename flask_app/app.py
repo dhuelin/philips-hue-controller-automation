@@ -1,3 +1,4 @@
+import json
 from flask import Flask, render_template, request, redirect, url_for
 from phue import Bridge, PhueRegistrationException
 from .config import Config
