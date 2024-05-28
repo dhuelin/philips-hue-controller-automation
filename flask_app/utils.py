@@ -20,13 +20,13 @@ def save_automations(automations):
     with open(AUTOMATIONS_FILE, 'w') as file:
         json.dump({'automations': automations}, file)
 
-def execute_automation(action, settings):
+def execute_automation(action, settings, lights):
     if action == "wake_up_alarm":
-        wake_up_alarm(settings)
+        wake_up_alarm(settings, lights)
 
-def wake_up_alarm(settings):
+def wake_up_alarm(settings, light_ids):
     lights = bridge.get_light_objects('id')
-    for light_id in settings["lights"]:
+    for light_id in light_ids:
         light = lights[light_id]
         for _ in range(settings["flash_count"]):
             light.on = True

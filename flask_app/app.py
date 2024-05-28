@@ -43,7 +43,7 @@ def schedule_automations():
                 'cron',
                 hour=trigger_time.hour,
                 minute=trigger_time.minute,
-                args=[automation['action'], automation['settings']]
+                args=[automation['action'], automation['settings'], automation['lights']]
             )
 
 scheduler.start()
