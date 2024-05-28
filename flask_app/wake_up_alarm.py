@@ -8,10 +8,9 @@ bridge = Bridge(config.get_hue_bridge_ip(), config.get_hue_username())
 AUTOMATIONS_FILE = 'automations.json'
 
 def wake_up_alarm():
-    bridge = Bridge('your-hue-bridge-ip')
     lights = bridge.get_light_objects('id')
     
-    for _ in range(10):  # Flash 10 times
+    for _ in range(100):  # Flash 10 times
         for light in lights.values():
             light.on = True
             light.brightness = 254
