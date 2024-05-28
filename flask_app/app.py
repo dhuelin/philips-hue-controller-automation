@@ -5,7 +5,7 @@ from .utils import load_automations, save_automations
 import os
 import json
 
-app = Flask(__name__, template_folder='templates')
+app = Flask(__name__, template_folder='flask_app/templates')
 
 # Load configuration
 config = Config()

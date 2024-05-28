@@ -16,9 +16,9 @@ echo "2. External Domain"
 read -p "Enter your choice [1 or 2]: " choice
 
 if [ "$choice" -eq 1 ]; then
-    python3 -m flask_app.app
+    FLASK_APP=flask_app.app flask run
 elif [ "$choice" -eq 2 ]; then
-    python3 -m flask_app.app --external
+    FLASK_APP=flask_app.app flask run --host=config.get_external_domain() --port=config.get_external_port()
 else
     echo "Invalid choice. Please run the script again."
 fi
