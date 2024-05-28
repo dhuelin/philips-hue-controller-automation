@@ -6,6 +6,7 @@ from flask_app.config import Config
 # Load configuration
 config = Config()
 bridge = Bridge(config.get_hue_bridge_ip(), config.get_hue_username())
+AUTOMATIONS_FILE = 'automations.json'
 
 def load_automations():
     try:
