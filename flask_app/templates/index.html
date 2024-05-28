@@ -3,43 +3,17 @@
 <head>
     <title>Hue Lights Control</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-    <script>
-        function toggleLight(lightId) {
-            fetch(`/toggle/${lightId}`)
-                .then(response => {
-                    if (response.ok) {
-                        return fetchLights();
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        }
-
-        function fetchLights() {
-            fetch('/lights')
-                .then(response => response.json())
-                .then(data => {
-                    const lightsList = document.getElementById('lights-list');
-                    lightsList.innerHTML = '';
-                    for (const lightId in data) {
-                        const light = data[lightId];
-                        const li = document.createElement('li');
-                        li.innerHTML = `<a href="javascript:toggleLight(${lightId})">${light.name}: ${light.on ? 'On' : 'Off'}</a>`;
-                        lightsList.appendChild(li);
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        }
-
-        document.addEventListener('DOMContentLoaded', (event) => {
-            fetchLights();
-        });
-    </script>
 </head>
 <body>
     <h1>Hue Lights</h1>
-    <ul id="lights-list">
-        <!-- Lights will be loaded here by JavaScript -->
+    <ul>
+    {% for light_id, light in lights.items() %}
+        <li>
+            <a href="/toggle/{{ light_id }}">{{ light.name }}: {{ 'On' if light.on else 'Off' }}</a>
+        </li>
+    {% endfor %}
     </ul>
+    <a href="/lights">Lights Overview</a>
     <a href="/automations">Automations</a>
 </body>
 </html>
