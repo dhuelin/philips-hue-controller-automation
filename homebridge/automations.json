@@ -10,7 +10,8 @@
                 "flash_count": 100,
                 "brightness": 254,
                 "on_duration": 1,
-                "off_duration": 1
+                "off_duration": 1,
+                "final_state": 1
             }
         }
     ]

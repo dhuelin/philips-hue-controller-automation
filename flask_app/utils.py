@@ -2,6 +2,7 @@ import json
 import time
 from phue import Bridge
 from .config import Config
+from concurrent.futures import ThreadPoolExecutor
 
 AUTOMATIONS_FILE = 'homebridge/automations.json'
 
@@ -24,16 +25,20 @@ def execute_automation(action, settings, lights):
     if action == "wake_up_alarm":
         wake_up_alarm(settings, lights)
 
-def wake_up_alarm(settings, light_ids):
+def wake_up_alarm(settings):
     lights = bridge.get_light_objects('id')
-    for light_id in light_ids:
-        light = lights[light_id]
-        for _ in range(settings["flash_count"]):
-            light.on = True
-            light.brightness = settings["brightness"]
-            time.sleep(settings["on_duration"])
-            light.on = False
-            time.sleep(settings["off_duration"])
+    with ThreadPoolExecutor() as executor:
+        for light_id in settings["lights"]:
+            executor.submit(flash_light, lights[light_id], settings)
+
+def flash_light(light, settings):
+    for _ in range(settings["flash_count"]):
+        light.on = True
+        light.brightness = settings["brightness"]
+        time.sleep(settings["on_duration"])
+        light.on = False
+        time.sleep(settings["off_duration"])
+    light.on = settings["final_state"] == 1
 
 def check_phone_connected(phone_mac):
     # This function would use a method to check if a specific device is connected to the network

@@ -14,19 +14,21 @@
             const brightness = document.getElementById('brightness').value;
             const on_duration = document.getElementById('on_duration').value;
             const off_duration = document.getElementById('off_duration').value;
+            const final_state = document.getElementById('final_state').value;
 
             const settings = {
+                lights: lights,
                 flash_count: parseInt(flash_count),
                 brightness: parseInt(brightness),
                 on_duration: parseFloat(on_duration),
-                off_duration: parseFloat(off_duration)
+                off_duration: parseFloat(off_duration),
+                final_state: parseInt(final_state)
             };
 
             const data = {
                 name: name,
                 trigger: trigger,
                 time: time,
-                lights: lights,
                 action: action,
                 settings: settings
             };
@@ -49,7 +51,7 @@
     <h1>Automations</h1>
     <ul>
     {% for automation in automations %}
-        <li>{{ automation.name }} - Trigger: {{ automation.trigger }} - Time: {{ automation.time }} - Lights: {{ automation.lights }} - Action: {{ automation.action }} - Settings: {{ automation.settings }}</li>
+        <li>{{ automation.name }} - Trigger: {{ automation.trigger }} - Time: {{ automation.time }} - Action: {{ automation.action }} - Settings: {{ automation.settings }}</li>
     {% endfor %}
     </ul>
     <h2>Add Automation</h2>
@@ -72,6 +74,8 @@
         <input type="number" step="0.1" id="on_duration" name="on_duration" required><br>
         <label for="off_duration">Off Duration (seconds):</label>
         <input type="number" step="0.1" id="off_duration" name="off_duration" required><br>
+        <label for="final_state">Final State (1 for on, 0 for off):</label>
+        <input type="number" id="final_state" name="final_state" required><br>
         <button type="submit">Add Automation</button>
     </form>
 </body>
