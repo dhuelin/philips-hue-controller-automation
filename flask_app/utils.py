@@ -11,13 +11,14 @@ bridge = Bridge(config.get_hue_bridge_ip(), config.get_hue_username())
 def load_automations():
     try:
         with open(AUTOMATIONS_FILE, 'r') as file:
-            return json.load(file)
+            data = json.load(file)
+            return data.get('automations', [])
     except FileNotFoundError:
         return []
 
 def save_automations(automations):
     with open(AUTOMATIONS_FILE, 'w') as file:
-        json.dump(automations, file)
+        json.dump({'automations': automations}, file)
 
 def execute_automation(action, settings):
     if action == "wake_up_alarm":
