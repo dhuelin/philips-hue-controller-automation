@@ -53,4 +53,13 @@ def delete_automation(name):
     return redirect(url_for('automations'))
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    import argparse
+
+    parser = argparse.ArgumentParser(description='Start the Flask server.')
+    parser.add_argument('--external', action='store_true', help='Run server with external configuration')
+    args = parser.parse_args()
+
+    if args.external:
+        app.run(host=config.get_external_domain(), port=config.get_external_port())
+    else:
+        app.run(host=config.get_local_host(), port=config.get_local_port())

@@ -6,6 +6,10 @@
       "username": "CC:22:3D:E3:CE:30",
       "port": 51826,
       "pin": "031-45-154"
-    }
+    },
+    "local_host": "0.0.0.0",
+    "local_port": 5000,
+    "external_domain": "yourdomain.com",
+    "external_port": 80
   }
   

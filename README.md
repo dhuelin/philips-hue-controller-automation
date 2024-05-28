@@ -25,7 +25,7 @@ A project to control Philips Hue lights using a Raspberry Pi. This setup include
 
 3. Configure your Hue bridge IP and username in the respective files:
    - `homebridge/config.json`
-   - `flask_app/app.py`
+   - `flask_app/config.py`
 
 4. Set your domain name in `nginx/flask_app` and re-run Certbot if necessary:
 
@@ -41,27 +41,10 @@ A project to control Philips Hue lights using a Raspberry Pi. This setup include
 - Control the lights via the iOS Home app using Homebridge.
 - Add new automations via the web interface under the "Automations" section.
 
-## Notes
+## Running the Server
 
-- Ensure your Raspberry Pi's firewall allows traffic on the necessary ports.
-- Keep your system and packages updated for security.
+To start the server, use the provided script:
 
-## .gitignore
-
-```plaintext
-# Ignore personal configuration files
-*.pyc
-__pycache__/
-.DS_Store
-.env
-*.log
-
-# Ignore Homebridge config
-homebridge/config.json
-
-# Ignore Nginx site configuration
-nginx/flask_app
-
-# Ignore automation files that may contain personal info
-flask_app/automations.json
-scripts/wifi_monitor.sh
+```bash
+cd hue-light-controller/scripts
+./start.sh
