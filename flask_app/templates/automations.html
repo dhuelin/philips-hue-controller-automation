@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Automations</title>
+    <link rel="stylesheet" href="/static/main.css">
+</head>
+<body>
+    <h1>Automations</h1>
+    <ul>
+    {% for automation in automations %}
+        <li>{{ automation.name }} - Trigger: {{ automation.trigger }} - Action: {{ automation.action }}
+            <a href="/delete_automation/{{ automation.name }}">Delete</a>
+        </li>
+    {% endfor %}
+    </ul>
+    <h2>Add Automation</h2>
+    <form method="post" action="/add_automation">
+        <label>Name:</label>
+        <input type="text" name="name"><br>
+        <label>Trigger:</label>
+        <input type="text" name="trigger"><br>
+        <label>Action:</label>
+        <input type="text" name="action"><br>
+        <button type="submit">Add</button>
+    </form>
+    <a href="/">Back to Control</a>
+</body>
+</html>

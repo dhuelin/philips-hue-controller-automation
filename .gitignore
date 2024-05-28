@@ -1,0 +1,16 @@
+# Ignore personal configuration files
+*.pyc
+__pycache__/
+.DS_Store
+.env
+*.log
+
+# Ignore Homebridge config
+homebridge/config.json
+
+# Ignore Nginx site configuration
+nginx/flask_app
+
+# Ignore automation files that may contain personal info
+flask_app/automations.json
+scripts/wifi_monitor.sh

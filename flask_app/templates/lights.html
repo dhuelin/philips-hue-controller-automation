@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hue Lights Overview</title>
+    <link rel="stylesheet" href="/static/main.css">
+</head>
+<body>
+    <h1>Lights Overview</h1>
+    <ul>
+    {% for light_id, light in lights.items() %}
+        <li>{{ light.name }}: {{ 'On' if light.on else 'Off' }}</li>
+    {% endfor %}
+    </ul>
+    <a href="/">Back to Control</a>
+</body>
+</html>
