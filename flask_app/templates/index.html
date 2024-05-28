@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Hue Lights Control</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
     <h1>Hue Lights</h1>
@@ -12,5 +13,7 @@
         </li>
     {% endfor %}
     </ul>
+    <a href="/lights">Lights Overview</a>
+    <a href="/automations">Automations</a>
 </body>
 </html>
