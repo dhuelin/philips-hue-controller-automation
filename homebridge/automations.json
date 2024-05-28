@@ -2,9 +2,9 @@
     "automations": [
         {
             "name": "Wake Up Alarm Asian",
-            "trigger": "time",  // Example trigger, could be extended
-            "time": "08:25",    // Time to trigger the alarm
-            "lights": [14, 24],  // Light IDs involved in the automation
+            "trigger": "time",
+            "time": "08:25",
+            "lights": [14, 24],
             "action": "wake_up_alarm",
             "settings": {
                 "flash_count": 100,
