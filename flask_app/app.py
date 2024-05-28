@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from phue import Bridge, PhueRegistrationException
 from .config import Config
 from .utils import load_automations, save_automations
+from .wake_up_alarm import wake_up_alarm
 import os
 import json
 
@@ -39,6 +40,10 @@ def index():
 def lights():
     lights = bridge.get_light_objects('id')
     return render_template('lights.html', lights=lights)
+
+@app.route('/wakeup')
+def wakeup():
+    wake_up_alarm()
 
 @app.route('/toggle/<int:light_id>')
 def toggle(light_id):

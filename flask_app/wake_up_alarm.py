@@ -7,15 +7,13 @@ config = Config()
 bridge = Bridge(config.get_hue_bridge_ip(), config.get_hue_username())
 
 def wake_up_alarm():
-    lights = bridge.get_light_objects('id')
+    light = bridge.get_light_objects('id')[14]
     
     for _ in range(100):  # Flash 10 times
-        for light in lights.values():
-            light.on = True
-            light.brightness = 254
+        light.on = True
+        light.brightness = 254
         time.sleep(0.5)
-        for light in lights.values():
-            light.on = False
+        light.on = False
         time.sleep(0.5)
 
 if __name__ == "__main__":
