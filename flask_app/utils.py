@@ -1,7 +1,11 @@
 import json
 from phue import Bridge
 
-AUTOMATIONS_FILE = 'automations.json'
+from flask_app.config import Config
+
+# Load configuration
+config = Config()
+bridge = Bridge(config.get_hue_bridge_ip(), config.get_hue_username())
 
 def load_automations():
     try:
@@ -15,7 +19,6 @@ def save_automations(automations):
         json.dump(automations, file)
 
 def execute_automation(action):
-    bridge = Bridge('your-hue-bridge-ip')
     if action == 'turn_on_lights':
         lights = bridge.get_light_objects('id')
         for light in lights.values():

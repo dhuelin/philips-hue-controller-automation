@@ -3,12 +3,11 @@ from phue import Bridge
 import json
 from utils import load_automations, save_automations, execute_automation
 
-# Load configuration from config.json
-with open('config.json') as config_file:
-    config = json.load(config_file)
+from flask_app.config import Config
 
-# Initialize the Bridge with the IP from the config
-bridge = Bridge(config['hue_bridge_ip'])
+# Load configuration
+config = Config()
+bridge = Bridge(config.get_hue_bridge_ip(), config.get_hue_username())
 
 app = Flask(__name__)
 
