@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for
 from phue import Bridge, PhueRegistrationException
 from .config import Config
 from .utils import load_automations, save_automations, execute_automation
-from .wake_up_alarm import wake_up_alarm
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 import os
