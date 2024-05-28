@@ -61,10 +61,6 @@ def lights():
     lights = bridge.get_light_objects('id')
     return render_template('lights.html', lights=lights)
 
-@app.route('/wakeup')
-def wakeup():
-    wake_up_alarm()
-
 @app.route('/toggle/<int:light_id>')
 def toggle(light_id):
     print(light_id)

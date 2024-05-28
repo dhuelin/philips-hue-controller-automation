@@ -25,10 +25,10 @@ def execute_automation(action, settings, lights):
     if action == "wake_up_alarm":
         wake_up_alarm(settings, lights)
 
-def wake_up_alarm(settings):
+def wake_up_alarm(settings, light_ids):
     lights = bridge.get_light_objects('id')
     with ThreadPoolExecutor() as executor:
-        for light_id in settings["lights"]:
+        for light_id in light_ids:
             executor.submit(flash_light, lights[light_id], settings)
 
 def flash_light(light, settings):
