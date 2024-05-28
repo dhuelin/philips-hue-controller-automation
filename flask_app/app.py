@@ -5,7 +5,7 @@ from .utils import load_automations, save_automations
 import os
 import json
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates', static_folder='static')
 
 # Load configuration
 config = Config()
@@ -30,7 +30,9 @@ bridge = Bridge(config.get_hue_bridge_ip(), config.get_hue_username())
 
 @app.route('/')
 def index():
+    print("Index route reached")
     lights = bridge.get_light_objects('id')
+    print(f"Lights: {lights}")
     return render_template('index.html', lights=lights)
 
 @app.route('/lights')
