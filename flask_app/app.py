@@ -37,13 +37,15 @@ def schedule_automations():
     for automation in automations:
         if automation['trigger'] == 'time':
             trigger_time = datetime.strptime(automation['time'], '%H:%M').time()
-            scheduler.add_job(
-                execute_automation,
-                'cron',
-                hour=trigger_time.hour,
-                minute=trigger_time.minute,
-                args=[automation['action'], automation['settings'], automation['lights']]
-            )
+            for day in automation['days']:
+                scheduler.add_job(
+                    execute_automation,
+                    'cron',
+                    day_of_week=day,
+                    hour=trigger_time.hour,
+                    minute=trigger_time.minute,
+                    args=[automation['action'], automation['lights'], automation['settings']]
+                )
 
 scheduler.start()
 schedule_automations()
@@ -79,6 +81,7 @@ def add_automation():
     automation = {
         'name': data['name'],
         'trigger': data['trigger'],
+        'days': data.get('days', []),
         'time': data.get('time', ''),
         'lights': data['lights'],
         'action': data['action'],

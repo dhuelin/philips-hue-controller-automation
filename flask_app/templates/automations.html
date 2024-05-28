@@ -15,9 +15,9 @@
             const on_duration = document.getElementById('on_duration').value;
             const off_duration = document.getElementById('off_duration').value;
             const final_state = document.getElementById('final_state').value;
+            const days = document.getElementById('days').value.split(',');
 
             const settings = {
-                lights: lights,
                 flash_count: parseInt(flash_count),
                 brightness: parseInt(brightness),
                 on_duration: parseFloat(on_duration),
@@ -29,6 +29,8 @@
                 name: name,
                 trigger: trigger,
                 time: time,
+                days: days,
+                lights: lights,
                 action: action,
                 settings: settings
             };
@@ -51,7 +53,7 @@
     <h1>Automations</h1>
     <ul>
     {% for automation in automations %}
-        <li>{{ automation.name }} - Trigger: {{ automation.trigger }} - Time: {{ automation.time }} - Action: {{ automation.action }} - Settings: {{ automation.settings }}</li>
+        <li>{{ automation.name }} - Trigger: {{ automation.trigger }} - Time: {{ automation.time }} - Days: {{ automation.days }} - Action: {{ automation.action }} - Settings: {{ automation.settings }}</li>
     {% endfor %}
     </ul>
     <h2>Add Automation</h2>
@@ -62,6 +64,8 @@
         <input type="text" id="trigger" name="trigger" required><br>
         <label for="time">Time (HH:MM):</label>
         <input type="text" id="time" name="time"><br>
+        <label for="days">Days (comma-separated short names e.g., mon,tue,wed):</label>
+        <input type="text" id="days" name="days" required><br>
         <label for="lights">Lights (comma-separated IDs):</label>
         <input type="text" id="lights" name="lights" required><br>
         <label for="action">Action:</label>
