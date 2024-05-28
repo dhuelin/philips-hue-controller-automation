@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export PYTHONPATH=$(pwd)/flask_app
-
 cd ~/workspace/philips-hue-controller-automation
 
 # Activate the virtual environment

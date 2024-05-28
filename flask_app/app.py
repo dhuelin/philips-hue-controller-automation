@@ -1,12 +1,27 @@
 from flask import Flask, render_template, request, redirect, url_for
-from phue import Bridge
+from phue import Bridge, PhueRegistrationException
 from .config import Config
 from .utils import load_automations, save_automations
+import os
 
 app = Flask(__name__)
 
 # Load configuration
 config = Config()
+
+# Ensure ~/.python_hue configuration file exists
+config_path = os.path.expanduser("~/.python_hue")
+if not os.path.exists(config_path):
+    try:
+        bridge = Bridge(config.get_hue_bridge_ip())
+        bridge.connect()
+        with open(config_path, 'w') as file:
+            json.dump({config.get_hue_bridge_ip(): {"username": config.get_hue_username()}}, file)
+    except PhueRegistrationException:
+        print("Please press the button on the Hue bridge and run the script again.")
+        exit(1)
+
+# Initialize the Bridge
 bridge = Bridge(config.get_hue_bridge_ip(), config.get_hue_username())
 
 @app.route('/')
