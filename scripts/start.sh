@@ -3,7 +3,14 @@
 export PYTHONPATH=$(pwd)/../flask_app
 
 cd ~/workspace/philips-hue-controller-automation
-source venv/bin/activate
+
+# Activate the virtual environment
+if [ -d "venv" ]; then
+    source venv/bin/activate
+else
+    echo "Virtual environment not found. Please run the install script first."
+    exit 1
+fi
 
 echo "Choose how to start the server:"
 echo "1. Local Network"
@@ -12,7 +19,7 @@ read -p "Enter your choice [1 or 2]: " choice
 
 if [ "$choice" -eq 1 ]; then
     python3 flask_app/app.py
-elif [ "$choice" -eq 2]; then
+elif [ "$choice" -eq 2 ]; then
     python3 flask_app/app.py --external
 else
     echo "Invalid choice. Please run the script again."
