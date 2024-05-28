@@ -32,7 +32,6 @@ if not os.path.exists(config_path):
 bridge = Bridge(config.get_hue_bridge_ip(), config.get_hue_username())
 
 scheduler = BackgroundScheduler()
-scheduler.start()
 
 def schedule_automations():
     automations = load_automations()
@@ -47,10 +46,8 @@ def schedule_automations():
                 args=[automation['action'], automation['settings']]
             )
 
-@app.before_first_request
-def initialize():
-    schedule_automations()
-
+scheduler.start()
+schedule_automations()
 
 @app.route('/')
 def index():

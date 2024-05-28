@@ -2,27 +2,77 @@
 <html>
 <head>
     <title>Automations</title>
-    <link rel="stylesheet" href="/static/main.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <script>
+        function addAutomation() {
+            const name = document.getElementById('name').value;
+            const trigger = document.getElementById('trigger').value;
+            const time = document.getElementById('time').value;
+            const lights = document.getElementById('lights').value.split(',').map(Number);
+            const action = document.getElementById('action').value;
+            const flash_count = document.getElementById('flash_count').value;
+            const brightness = document.getElementById('brightness').value;
+            const on_duration = document.getElementById('on_duration').value;
+            const off_duration = document.getElementById('off_duration').value;
+
+            const settings = {
+                flash_count: parseInt(flash_count),
+                brightness: parseInt(brightness),
+                on_duration: parseFloat(on_duration),
+                off_duration: parseFloat(off_duration)
+            };
+
+            const data = {
+                name: name,
+                trigger: trigger,
+                time: time,
+                lights: lights,
+                action: action,
+                settings: settings
+            };
+
+            fetch('/add_automation', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                }
+            }).catch(error => console.error('Error:', error));
+        }
+    </script>
 </head>
 <body>
     <h1>Automations</h1>
     <ul>
     {% for automation in automations %}
-        <li>{{ automation.name }} - Trigger: {{ automation.trigger }} - Action: {{ automation.action }}
-            <a href="/delete_automation/{{ automation.name }}">Delete</a>
-        </li>
+        <li>{{ automation.name }} - Trigger: {{ automation.trigger }} - Time: {{ automation.time }} - Lights: {{ automation.lights }} - Action: {{ automation.action }} - Settings: {{ automation.settings }}</li>
     {% endfor %}
     </ul>
     <h2>Add Automation</h2>
-    <form method="post" action="/add_automation">
-        <label>Name:</label>
-        <input type="text" name="name"><br>
-        <label>Trigger:</label>
-        <input type="text" name="trigger"><br>
-        <label>Action:</label>
-        <input type="text" name="action"><br>
-        <button type="submit">Add</button>
+    <form onsubmit="event.preventDefault(); addAutomation();">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="trigger">Trigger:</label>
+        <input type="text" id="trigger" name="trigger" required><br>
+        <label for="time">Time (HH:MM):</label>
+        <input type="text" id="time" name="time"><br>
+        <label for="lights">Lights (comma-separated IDs):</label>
+        <input type="text" id="lights" name="lights" required><br>
+        <label for="action">Action:</label>
+        <input type="text" id="action" name="action" required><br>
+        <label for="flash_count">Flash Count:</label>
+        <input type="number" id="flash_count" name="flash_count" required><br>
+        <label for="brightness">Brightness:</label>
+        <input type="number" id="brightness" name="brightness" required><br>
+        <label for="on_duration">On Duration (seconds):</label>
+        <input type="number" step="0.1" id="on_duration" name="on_duration" required><br>
+        <label for="off_duration">Off Duration (seconds):</label>
+        <input type="number" step="0.1" id="off_duration" name="off_duration" required><br>
+        <button type="submit">Add Automation</button>
     </form>
-    <a href="/">Back to Control</a>
 </body>
 </html>
