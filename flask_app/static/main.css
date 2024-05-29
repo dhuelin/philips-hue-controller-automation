@@ -77,6 +77,14 @@ ul li strong {
     color: #007bff;
 }
 
+ul li button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
 ul li button.on {
     background-color: #28a745; /* Green */
     color: white;
