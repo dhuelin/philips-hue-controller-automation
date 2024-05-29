@@ -44,7 +44,7 @@ def schedule_automations():
                     day_of_week=day,
                     hour=trigger_time.hour,
                     minute=trigger_time.minute,
-                    args=[automation['action'], automation['lights'], automation['settings']]
+                    args=[automation['action'], automation['settings'], automation['lights']]
                 )
 
 scheduler.start()
