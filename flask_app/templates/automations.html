@@ -77,28 +77,50 @@
             </ul>
             <h2>Add Automation</h2>
             <form onsubmit="event.preventDefault(); addAutomation();">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required><br>
-                <label for="trigger">Trigger:</label>
-                <input type="text" id="trigger" name="trigger" required><br>
-                <label for="time">Time (HH:MM):</label>
-                <input type="text" id="time" name="time"><br>
-                <label for="days">Days (comma-separated short names e.g., mon,tue,wed):</label>
-                <input type="text" id="days" name="days" required><br>
-                <label for="lights">Lights (comma-separated IDs):</label>
-                <input type="text" id="lights" name="lights" required><br>
-                <label for="action">Action:</label>
-                <input type="text" id="action" name="action" required><br>
-                <label for="flash_count">Flash Count:</label>
-                <input type="number" id="flash_count" name="flash_count" required><br>
-                <label for="brightness">Brightness:</label>
-                <input type="number" id="brightness" name="brightness" required><br>
-                <label for="on_duration">On Duration (seconds):</label>
-                <input type="number" step="0.1" id="on_duration" name="on_duration" required><br>
-                <label for="off_duration">Off Duration (seconds):</label>
-                <input type="number" step="0.1" id="off_duration" name="off_duration" required><br>
-                <label for="final_state">Final State (1 for on, 0 for off):</label>
-                <input type="number" id="final_state" name="final_state" required><br>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="trigger">Trigger:</label>
+                    <input type="text" id="trigger" name="trigger" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Time (HH:MM):</label>
+                    <input type="text" id="time" name="time">
+                </div>
+                <div class="form-group">
+                    <label for="days">Days (comma-separated short names e.g., mon,tue,wed):</label>
+                    <input type="text" id="days" name="days" required>
+                </div>
+                <div class="form-group">
+                    <label for="lights">Lights (comma-separated IDs):</label>
+                    <input type="text" id="lights" name="lights" required>
+                </div>
+                <div class="form-group">
+                    <label for="action">Action:</label>
+                    <input type="text" id="action" name="action" required>
+                </div>
+                <div class="form-group">
+                    <label for="flash_count">Flash Count:</label>
+                    <input type="number" id="flash_count" name="flash_count" required>
+                </div>
+                <div class="form-group">
+                    <label for="brightness">Brightness:</label>
+                    <input type="number" id="brightness" name="brightness" required>
+                </div>
+                <div class="form-group">
+                    <label for="on_duration">On Duration (seconds):</label>
+                    <input type="number" step="0.1" id="on_duration" name="on_duration" required>
+                </div>
+                <div class="form-group">
+                    <label for="off_duration">Off Duration (seconds):</label>
+                    <input type="number" step="0.1" id="off_duration" name="off_duration" required>
+                </div>
+                <div class="form-group">
+                    <label for="final_state">Final State (1 for on, 0 for off):</label>
+                    <input type="number" id="final_state" name="final_state" required>
+                </div>
                 <button type="submit">Add Automation</button>
             </form>
         </div>
