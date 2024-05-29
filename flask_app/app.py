@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from flask import Flask, render_template, request, redirect, url_for
 from phue import Bridge, PhueRegistrationException
 from .config import Config
@@ -31,6 +33,7 @@ if not os.path.exists(config_path):
 bridge = Bridge(config.get_hue_bridge_ip(), config.get_hue_username())
 
 scheduler = BackgroundScheduler()
+
 
 def schedule_automations():
     automations = load_automations()
@@ -82,6 +85,7 @@ def automations():
 def add_automation():
     data = request.get_json()
     automation = {
+        'id': uuid4(),
         'name': data['name'],
         'trigger': data['trigger'],
         'days': data.get('days', []),
@@ -96,12 +100,27 @@ def add_automation():
     return redirect(url_for('automations'))
 
 
-@app.route('/delete_automation/<name>')
-def delete_automation(name):
+# Delete an automation
+@app.route('/delete_automation/<int:automation_id>', methods=['DELETE'])
+def delete_automation(automation_id):
     automations = load_automations()
-    automations = [a for a in automations if a['name'] != name]
+    automations = [automation for automation in automations if automation["id"] != automation_id]
     save_automations(automations)
     return redirect(url_for('automations'))
+
+
+# Edit an automation
+@app.route('/edit_automation/<int:automation_id>', methods=['PUT'])
+def edit_automation(automation_id):
+    automations = load_automations()
+    edited_automation = request.json
+    for idx, automation in enumerate(automations):
+        if automation["id"] == automation_id:
+            automations[idx] = edited_automation
+            break
+    save_automations(automations)
+    return redirect(url_for('automations'))
+
 
 if __name__ == '__main__':
     import argparse

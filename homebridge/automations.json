@@ -1,6 +1,7 @@
 {
     "automations": [
         {
+            "id": "1bf091b9-09b7-40b1-9eb8-9f7b9a4b4d0f",
             "name": "Wake Up Alarm Asian",
             "trigger": "time",
             "time": "08:25",

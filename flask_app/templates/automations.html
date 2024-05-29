@@ -51,6 +51,91 @@
                 console.error('Error adding automation:', error);
             }
         }
+
+        async function deleteAutomation(automationId) {
+            try {
+                const response = await fetch(`/delete_automation/${automationId}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    window.location.reload();
+                }
+            } catch (error) {
+                console.error('Error deleting automation:', error);
+            }
+        }
+
+        function openEditModal(automation) {
+            document.getElementById('edit-id').value = automation.id;
+            document.getElementById('edit-name').value = automation.name;
+            document.getElementById('edit-trigger').value = automation.trigger;
+            document.getElementById('edit-time').value = automation.time;
+            document.getElementById('edit-days').value = automation.days.join(',');
+            document.getElementById('edit-lights').value = automation.lights.join(',');
+            document.getElementById('edit-action').value = automation.action;
+            document.getElementById('edit-flash_count').value = automation.settings.flash_count;
+            document.getElementById('edit-brightness').value = automation.settings.brightness;
+            document.getElementById('edit-on_duration').value = automation.settings.on_duration;
+            document.getElementById('edit-off_duration').value = automation.settings.off_duration;
+            document.getElementById('edit-final_state').value = automation.settings.final_state;
+
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        async function saveAutomation() {
+            const id = document.getElementById('edit-id').value;
+            const name = document.getElementById('edit-name').value;
+            const trigger = document.getElementById('edit-trigger').value;
+            const time = document.getElementById('edit-time').value;
+            const lights = document.getElementById('edit-lights').value.split(',').map(Number);
+            const action = document.getElementById('edit-action').value;
+            const flash_count = document.getElementById('edit-flash_count').value;
+            const brightness = document.getElementById('edit-brightness').value;
+            const on_duration = document.getElementById('edit-on_duration').value;
+            const off_duration = document.getElementById('edit-off_duration').value;
+            const final_state = document.getElementById('edit-final_state').value;
+            const days = document.getElementById('edit-days').value.split(',').map(String);
+
+            const settings = {
+                flash_count: parseInt(flash_count),
+                brightness: parseInt(brightness),
+                on_duration: parseFloat(on_duration),
+                off_duration: parseFloat(off_duration),
+                final_state: parseInt(final_state)
+            };
+
+            const data = {
+                id: id,
+                name: name,
+                trigger: trigger,
+                time: time,
+                days: days,
+                lights: lights,
+                action: action,
+                settings: settings
+            };
+
+            try {
+                const response = await fetch(`/edit_automation/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    window.location.reload();
+                }
+            } catch (error) {
+                console.error('Error saving automation:', error);
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
     </script>
 </head>
 <body>
@@ -63,15 +148,23 @@
         </div>
         <div class="content">
             <h1>Automations</h1>
-            <ul>
+
+            <ul class="automations-list">
                 {% for automation in automations %}
                     <li>
-                        <strong>{{ automation.name }}</strong> - 
-                        Trigger: {{ automation.trigger }} - 
-                        Time: {{ automation.time }} - 
-                        Days: {{ automation.days | join(', ') }} - 
-                        Action: {{ automation.action }} - 
-                        Settings: {{ automation.settings | tojson }}
+                        <div class="automation-info">
+                            <strong>{{ automation.name }}</strong> -
+                            ID: {{ automation.id }} -
+                            Trigger: {{ automation.trigger }} -
+                            Time: {{ automation.time }} -
+                            Days: {{ automation.days | join(', ') }} -
+                            Action: {{ automation.action }} -
+                            Settings: {{ automation.settings | tojson }}
+                        </div>
+                        <div class="automation-buttons">
+                            <button onclick="deleteAutomation({{ automation.id }})">Delete</button>
+                            <button onclick="openEditModal({{ automation | tojson }})">Edit</button>
+                        </div>
                     </li>
                 {% endfor %}
             </ul>
@@ -125,5 +218,61 @@
             </form>
         </div>
     </div>
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Edit Automation</h2>
+        <form onsubmit="event.preventDefault(); saveAutomation();">
+            <input type="hidden" id="edit-id">
+            <div class="form-group">
+                <label for="edit-name">Name:</label>
+                <input type="text" id="edit-name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-trigger">Trigger:</label>
+                <input type="text" id="edit-trigger" name="trigger" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-time">Time (HH:MM):</label>
+                <input type="text" id="edit-time" name="time">
+            </div>
+            <div class="form-group">
+                <label for="edit-days">Days (comma-separated short names e.g., mon,tue,wed):</label>
+                <input type="text" id="edit-days" name="days" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-lights">Lights (comma-separated IDs):</label>
+                <input type="text" id="edit-lights" name="lights" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-action">Action:</label>
+                <input type="text" id="edit-action" name="action" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-flash_count">Flash Count:</label>
+                <input type="number" id="edit-flash_count" name="flash_count" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-brightness">Brightness:</label>
+                <input type="number" id="edit-brightness" name="brightness" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-on_duration">On Duration (seconds):</label>
+                <input type="number" step="0.1" id="edit-on_duration" name="on_duration" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-off_duration">Off Duration (seconds):</label>
+                <input type="number" step="0.1" id="edit-off_duration" name="off_duration" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-final_state">Final State (1 for on, 0 for off):</label>
+                <input type="number" id="edit-final_state" name="final_state" required>
+            </div>
+            <button type="submit">Save Automation</button>
+            <button type="button" onclick="closeModal()">Cancel</button>
+        </form>
+    </div>
+</div>
+
 </body>
 </html>
