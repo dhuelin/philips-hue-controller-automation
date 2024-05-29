@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Automations</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     <script>
-        function addAutomation() {
+        async function addAutomation() {
             const name = document.getElementById('name').value;
             const trigger = document.getElementById('trigger').value;
             const time = document.getElementById('time').value;
@@ -36,21 +35,24 @@
                 settings: settings
             };
 
-            fetch('/add_automation', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }).then(response => {
+            try {
+                const response = await fetch('/add_automation', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
                 if (response.ok) {
                     window.location.reload();
                 }
-            }).catch(error => console.error('Error:', error));
+            } catch (error) {
+                console.error('Error adding automation:', error);
+            }
         }
     </script>
 </head>
-
 <body>
     <div class="container">
         <div class="sidebar">
@@ -63,8 +65,14 @@
             <h1>Automations</h1>
             <ul>
                 {% for automation in automations %}
-                <li>{{ automation.name }} - Trigger: {{ automation.trigger }} - Time: {{ automation.time }} - Days: {{
-                    automation.days }} - Action: {{ automation.action }} - Settings: {{ automation.settings }}</li>
+                    <li>
+                        <strong>{{ automation.name }}</strong> - 
+                        Trigger: {{ automation.trigger }} - 
+                        Time: {{ automation.time }} - 
+                        Days: {{ automation.days.join(', ') }} - 
+                        Action: {{ automation.action }} - 
+                        Settings: {{ automation.settings | tojson }}
+                    </li>
                 {% endfor %}
             </ul>
             <h2>Add Automation</h2>
@@ -96,5 +104,4 @@
         </div>
     </div>
 </body>
-
 </html>
