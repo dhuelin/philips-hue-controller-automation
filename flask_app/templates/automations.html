@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Automations</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
@@ -49,6 +50,7 @@
         }
     </script>
 </head>
+
 <body>
     <div class="container">
         <div class="sidebar">
@@ -61,7 +63,8 @@
             <h1>Automations</h1>
             <ul>
                 {% for automation in automations %}
-                    <li>{{ automation.name }} - Trigger: {{ automation.trigger }} - Time: {{ automation.time }} - Days: {{ automation.days }} - Action: {{ automation.action }} - Settings: {{ automation.settings }}</li>
+                <li>{{ automation.name }} - Trigger: {{ automation.trigger }} - Time: {{ automation.time }} - Days: {{
+                    automation.days }} - Action: {{ automation.action }} - Settings: {{ automation.settings }}</li>
                 {% endfor %}
             </ul>
             <h2>Add Automation</h2>
@@ -93,4 +96,5 @@
         </div>
     </div>
 </body>
+
 </html>

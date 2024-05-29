@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Hue Lights Control</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
+
 <body>
     <div class="container">
         <div class="sidebar">
@@ -16,12 +18,13 @@
             <h1>Hue Lights</h1>
             <ul id="lights-list">
                 {% for light_id, light in lights.items() %}
-                    <li>
-                        <a href="/toggle/{{ light_id }}">{{ light.name }}: {{ 'On' if light.on else 'Off' }}</a>
-                    </li>
+                <li>
+                    <a href="/toggle/{{ light_id }}">{{ light.name }}: {{ 'On' if light.on else 'Off' }}</a>
+                </li>
                 {% endfor %}
             </ul>
         </div>
     </div>
 </body>
+
 </html>
