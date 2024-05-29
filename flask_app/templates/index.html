@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Hue Lights Control</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <script>
+        async function toggleLight(lightId) {
+            try {
+                const response = await fetch(`/toggle/${lightId}`);
+                if (response.ok) {
+                    const button = document.getElementById(`button-${lightId}`);
+                    const isOn = button.classList.contains('on');
+                    button.classList.toggle('on', !isOn);
+                    button.classList.toggle('off', isOn);
+                    button.textContent = !isOn ? 'On' : 'Off';
+                }
+            } catch (error) {
+                console.error('Error toggling light:', error);
+            }
+        }
+    </script>
 </head>
-
 <body>
     <div class="container">
         <div class="sidebar">
@@ -18,13 +32,18 @@
             <h1>Hue Lights</h1>
             <ul id="lights-list">
                 {% for light_id, light in lights.items() %}
-                <li>
-                    <a href="/toggle/{{ light_id }}">{{ light.name }}: {{ 'On' if light.on else 'Off' }}</a>
-                </li>
+                    <li>
+                        <span>{{ light.name }}:</span>
+                        <button 
+                            id="button-{{ light_id }}" 
+                            class="{{ 'on' if light.on else 'off' }}" 
+                            onclick="toggleLight({{ light_id }})">
+                            {{ 'On' if light.on else 'Off' }}
+                        </button>
+                    </li>
                 {% endfor %}
             </ul>
         </div>
     </div>
 </body>
-
 </html>

@@ -64,49 +64,29 @@ ul li {
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-ul li a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-}
-
-ul li a:hover {
-    color: #007bff;
-}
-
-form {
-    max-width: 500px;
-    margin: 0 auto;
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-form input, form button {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-form button {
-    background-color: #007bff;
-    color: white;
+ul li button {
+    padding: 10px 20px;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-form button:hover {
-    background-color: #0056b3;
+ul li button.on {
+    background-color: #28a745; /* Green */
+    color: white;
+}
+
+ul li button.off {
+    background-color: #dc3545; /* Red */
+    color: white;
+}
+
+ul li button:hover {
+    opacity: 0.8;
 }
