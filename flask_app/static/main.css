@@ -2,11 +2,13 @@ body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f0f8ff;
+    overflow: hidden; /* Prevent body from scrolling */
 }
 
 .container {
     display: flex;
     height: 100vh;
+    overflow: hidden; /* Prevent container from scrolling */
 }
 
 .sidebar {
@@ -45,6 +47,8 @@ body {
     flex: 1;
     padding: 20px;
     background: linear-gradient(180deg, #e6f1ff, #ffffff);
+    overflow-y: auto; /* Enable vertical scrolling */
+    height: 100vh; /* Set height to ensure it takes the full available space */
 }
 
 h1 {
