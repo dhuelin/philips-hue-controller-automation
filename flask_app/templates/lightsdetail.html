@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Hue Lights Overview</title>
+    <title>Hue Light Detail</title>
     <link rel="stylesheet" href="/static/main.css">
 </head>
 <bbody>
@@ -14,14 +14,10 @@
             <a href="/automations">Automations</a>
         </div>
         <div class="content">
-            <h1>Lights Overview</h1>
+            <h1>{{light.name}}</h1>
             <ul id="lights-list">
-                {% for light_id, light in lights.items() %}
-                    <a href="/light/{{ light_id }}">
-                        <li>
-                            <span>{{ light.name }}</span>
-                        </li>
-                    </a>
+                {% for key, value in light.items() %}
+                    <li><strong>{{ key }}:</strong> {{ value }}</li>
                 {% endfor %}
             </ul>
         </div>
