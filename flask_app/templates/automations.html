@@ -15,7 +15,7 @@
             const on_duration = document.getElementById('on_duration').value;
             const off_duration = document.getElementById('off_duration').value;
             const final_state = document.getElementById('final_state').value;
-            const days = document.getElementById('days').value.split(',');
+            const days = document.getElementById('days').value.split(',').map(String);
 
             const settings = {
                 flash_count: parseInt(flash_count),
@@ -69,7 +69,7 @@
                         <strong>{{ automation.name }}</strong> - 
                         Trigger: {{ automation.trigger }} - 
                         Time: {{ automation.time }} - 
-                        Days: {{ automation.days.join(', ') }} - 
+                        Days: {{ automation.days | join(', ') }} - 
                         Action: {{ automation.action }} - 
                         Settings: {{ automation.settings | tojson }}
                     </li>
