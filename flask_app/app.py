@@ -65,7 +65,8 @@ def lights():
 @app.route('/light/<int:light_id>')
 def lightDetail(light_id):
     light = bridge.get_light_objects('id')[light_id]
-    return render_template('lightdetail.html', light=light)
+    light_attrs = {attr: getattr(light, attr) for attr in dir(light) if not attr.startswith('_') and not callable(getattr(light, attr))}
+    return render_template('lightDetail.html', light=light_attrs)
 
 @app.route('/toggle/<int:light_id>')
 def toggle(light_id):
@@ -95,6 +96,23 @@ def add_automation():
     save_automations(automations)
     return redirect(url_for('automations'))
 
+@app.route('/update_automation', methods=['POST'])
+def add_automation(automation):
+    data = request.get_json()
+    automation = {
+        'name': data['name'],
+        'trigger': data['trigger'],
+        'days': data.get('days', []),
+        'time': data.get('time', ''),
+        'lights': data['lights'],
+        'action': data['action'],
+        'settings': data['settings']
+    }
+    automations = load_automations()
+    automations.append(automation)
+    save_automations(automations)
+    return redirect(url_for('automations'))
+
 
 @app.route('/delete_automation/<name>')
 def delete_automation(name):
@@ -102,6 +120,10 @@ def delete_automation(name):
     automations = [a for a in automations if a['name'] != name]
     save_automations(automations)
     return redirect(url_for('automations'))
+
+def reload_all_automations():
+    scheduler.remove_all_jobs()
+    schedule_automations()
 
 if __name__ == '__main__':
     import argparse
