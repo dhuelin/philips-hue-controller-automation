@@ -33,6 +33,7 @@ bridge = Bridge(config.get_hue_bridge_ip(), config.get_hue_username())
 scheduler = BackgroundScheduler()
 
 def schedule_automations():
+    scheduler.remove_all_jobs()
     automations = load_automations()
     for automation in automations:
         if automation['trigger'] == 'time':
