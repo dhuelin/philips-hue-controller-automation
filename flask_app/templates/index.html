@@ -33,6 +33,7 @@
             <ul id="lights-list">
                 {% for light_id, light in lights.items() %}
                     <li>
+                        <span>{{ light_id }}</span>
                         <span>{{ light.name }}:</span>
                         <button 
                             id="button-{{ light_id }}" 
