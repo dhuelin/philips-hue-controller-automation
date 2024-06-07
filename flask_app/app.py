@@ -80,7 +80,7 @@ def automations():
     automations = load_automations()
     return render_template('automations.html', automations=automations)
 
-@app.route('/add_automation', methods=['POST'])
+""" @app.route('/add_automation', methods=['POST'])
 def add_automation():
     data = request.get_json()
     automation = {
@@ -95,7 +95,7 @@ def add_automation():
     automations = load_automations()
     automations.append(automation)
     save_automations(automations)
-    return redirect(url_for('automations'))
+    return redirect(url_for('automations')) """
 
 @app.route('/update_automation', methods=['POST'])
 def add_automation(automation):
