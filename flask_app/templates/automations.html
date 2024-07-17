@@ -97,7 +97,7 @@
                         Action: {{ automation.action }} - 
                         Settings: {{ automation.settings | tojson }}
                         <button onclick="toggleAutomation( automation.id, automation.active )">
-                            {{ automation.active | yesno:"Deactivate,Activate" }}
+                            {{ 'Deactivate' if automation.active else 'Activate' }}
                         </button>
                     </li>
                 {% endfor %}

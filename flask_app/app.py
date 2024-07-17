@@ -36,7 +36,7 @@ def schedule_automations():
     scheduler.remove_all_jobs()
     automations = load_automations()
     for automation in automations:
-        if automation['trigger'] == 'time':
+        if automation['active'] == True and automation['trigger'] == 'time':
             trigger_time = datetime.strptime(automation['time'], '%H:%M').time()
             for day in automation['days']:
                 scheduler.add_job(

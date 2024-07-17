@@ -1,7 +1,8 @@
 {
     "automations": [
         {
-            "name": "Wake Up Alarm Asian",
+            "id"; "0"
+            "name": "Wake Up Alarm Denis",
             "active": true,
             "trigger": "time",
             "time": "08:25",
