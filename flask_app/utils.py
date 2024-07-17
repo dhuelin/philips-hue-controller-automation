@@ -20,6 +20,7 @@ def load_automations():
 def save_automations(automations):
     with open(AUTOMATIONS_FILE, 'w') as file:
         json.dump({'automations': automations}, file)
+    
 
 def execute_automation(action, settings, lights):
     if action == "wake_up_alarm":

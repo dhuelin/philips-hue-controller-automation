@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, jsonify, render_template, request, redirect, url_for
 from phue import Bridge, PhueRegistrationException
 from .config import Config
 from .utils import load_automations, save_automations, execute_automation
@@ -67,7 +67,7 @@ def lights():
 def lightDetail(light_id):
     light = bridge.get_light_objects('id')[light_id]
     light_attrs = {attr: getattr(light, attr) for attr in dir(light) if not attr.startswith('_') and not callable(getattr(light, attr))}
-    return render_template('lightDetail.html', light=light_attrs)
+    return render_template('lightdetail.html', light=light_attrs)
 
 @app.route('/toggle/<int:light_id>')
 def toggle(light_id):
@@ -102,6 +102,7 @@ def add_automation(automation):
     data = request.get_json()
     automation = {
         'name': data['name'],
+        'active': data['active'],
         'trigger': data['trigger'],
         'days': data.get('days', []),
         'time': data.get('time', ''),
@@ -115,11 +116,23 @@ def add_automation(automation):
     return redirect(url_for('automations'))
 
 
+@app.route('/toggle_automation/<int:automation_id>', methods=['POST'])
+def toggle_automation(automation_id):
+    automations = load_automations()
+    for automation in automations:
+        if automation['id'] == automation_id:
+            automation['active'] = not automation['active']
+            break
+    save_automations(automations)
+    reload_all_automations()
+    return jsonify({'success': True})
+
 @app.route('/delete_automation/<name>')
 def delete_automation(name):
     automations = load_automations()
     automations = [a for a in automations if a['name'] != name]
     save_automations(automations)
+    reload_all_automations()
     return redirect(url_for('automations'))
 
 def reload_all_automations():

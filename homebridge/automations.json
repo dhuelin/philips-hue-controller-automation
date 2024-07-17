@@ -2,24 +2,11 @@
     "automations": [
         {
             "name": "Wake Up Alarm Asian",
+            "active": true,
             "trigger": "time",
             "time": "08:25",
             "days": ["mon", "tue", "wed", "thu"],
             "lights": [14, 22, 23, 24],
-            "action": "wake_up_alarm",
-            "settings": {
-                "flash_count": 100,
-                "brightness": 254,
-                "on_duration": 1,
-                "off_duration": 1,
-                "final_state": 1
-            }
-        }, {
-            "name": "Wake Up T For BAA",
-            "trigger": "time",
-            "time": "09:45",
-            "days": ["fri"],
-            "lights": [6, 7, 8, 9, 10, 20, 21, 25, 26],
             "action": "wake_up_alarm",
             "settings": {
                 "flash_count": 100,
