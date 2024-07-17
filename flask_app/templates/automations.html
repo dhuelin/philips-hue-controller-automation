@@ -60,8 +60,7 @@
                 const response = await fetch(`/toggle_automation/${id}`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token() }}' // Ensure CSRF token is included
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({ active: newStatus })
                 });
