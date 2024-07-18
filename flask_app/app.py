@@ -121,12 +121,12 @@ def toggle_automation(automation_id):
     automations = load_automations()
     for automation in automations:
         if automation['id'] == automation_id:
-            print("automation found with id" + automation_id)
-            print("automation['active'] before: " + str(automation['active']))
-            automation['active'] = not bool(automation['active'])
-            print("automation['active'] after: " + str(automation['active']))
+            app.logger.info(f"automation found with id {automation_id}")
+            app.logger.info(f"automation['active'] before: {automation['active']}")
+            automation['active'] = not automation['active']
+            app.logger.info(f"automation['active'] after: {automation['active']}")
             break
-    
+
     save_automations(automations)
     reload_all_automations()
     return jsonify({'success': True})
