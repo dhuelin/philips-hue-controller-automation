@@ -95,7 +95,7 @@
                         Days: {{ automation.days | join(', ') }} - 
                         Action: {{ automation.action }} - 
                         Settings: {{ automation.settings | tojson }}
-                        <button onclick="toggleAutomation({{ automation.id }}, {{ automation.active }})">
+                        <button onclick="toggleAutomation({{ automation.id }}, {{ 'true' if automation.active else 'false' }})">
                             {{ 'Deactivate' if automation.active else 'Activate' }}
                         </button>
                     </li>
