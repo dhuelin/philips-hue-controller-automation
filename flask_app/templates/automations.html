@@ -53,16 +53,14 @@
             }
         }
 
-        async function toggleAutomation(id, currentStatus) {
-            const newStatus = !currentStatus;
+        async function toggleAutomation(id) {
 
             try {
                 const response = await fetch(`/toggle_automation/${id}`, {
-                    method: 'POST',
+                    method: 'get',
                     headers: {
                         'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ active: newStatus })
+                    }
                 });
 
                 if (response.ok) {

@@ -116,14 +116,14 @@ def add_automation(automation):
     return redirect(url_for('automations'))
 
 
-@app.route('/toggle_automation/<int:automation_id>', methods=['POST'])
+@app.route('/toggle_automation/<int:automation_id>', methods=['GET'])
 def toggle_automation(automation_id):
     automations = load_automations()
     for automation in automations:
         if automation['id'] == automation_id:
             print("automation found with id" + automation_id)
             print("automation['active'] before: " + str(automation['active']))
-            automation['active'] = not automation['active']
+            automation['active'] = not bool(automation['active'])
             print("automation['active'] after: " + str(automation['active']))
             break
     
