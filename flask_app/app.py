@@ -119,10 +119,13 @@ def add_automation(automation):
 @app.route('/toggle_automation/<int:automation_id>', methods=['POST'])
 def toggle_automation(automation_id):
     automations = load_automations()
+    print("Found Automations: " + automations)
     for automation in automations:
         if automation['id'] == automation_id:
             automation['active'] = not automation['active']
             break
+    
+    print("Modified Automations: " + automations)
     save_automations(automations)
     reload_all_automations()
     return jsonify({'success': True})
