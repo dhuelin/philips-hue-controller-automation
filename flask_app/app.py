@@ -116,7 +116,7 @@ def add_automation(automation):
     return redirect(url_for('automations'))
 
 
-@app.route('/toggle_automation/<int:automation_id>', methods=['GET'])
+@app.route('/toggle_automation/<automation_id>')
 def toggle_automation(automation_id):
     automations = load_automations()
     for automation in automations:
